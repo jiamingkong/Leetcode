@@ -16,13 +16,13 @@ public:
 
         while(fast != NULL)
         {
-        	step(fast); step(slow);
-        	if(fast != NULL)
-        	{
-        		step(fast);
-        	}
+            step(fast); step(slow);
+            if(fast != NULL)
+            {
+                step(fast);
+            }
 
-        	if(fast == slow) break;
+            if(fast == slow) break;
         }
 
         if(fast == NULL) return NULL;
@@ -30,13 +30,13 @@ public:
         fast = head;
         while(fast != slow)
         {
-        	step(fast); step(slow);
+            step(fast); step(slow);
         }
         return fast;
     }
 
     inline void step(ListNode *&ptr)
     {
-    	ptr = ptr->next;
+        ptr = ptr->next;
     }
 };
