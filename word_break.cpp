@@ -11,25 +11,25 @@ For every substring(0, n) where n>= 2, there are more than 1 possible cut. Howev
 class Solution {
 public:
     bool wordBreak(string s, unordered_set<string> &dict) {
-    	vector<bool> found(s.size() + 1, false);
-    	found[0] = true;
+        vector<bool> found(s.size() + 1, false);
+        found[0] = true;
 
-    	// padding the original string to make the formula more general.
+        // padding the original string to make the formula more general.
 
-    	string _s = '*' + s;
-    	int length = _s.size();
+        string _s = '*' + s;
+        int length = _s.size();
 
-    	int i,j;
+        int i, j;
 
-    	for(i = 1; i < length; i++)
-    	{
-    		for(j = 0; j < i ; ++j)
-    		{
-    			found[i] = found[j] && dict.find(_s.substr(k+1, i-k)) != dict.end();
-    			if(found[i]) break;
-    		}
-    	}
+        for (i = 1; i < length; i++)
+        {
+            for (j = 0; j < i ; ++j)
+            {
+                found[i] = found[j] && dict.find(_s.substr(k + 1, i - k)) != dict.end();
+                if (found[i]) break;
+            }
+        }
 
-    	return found[length - 1];
+        return found[length - 1];
     }
 };
