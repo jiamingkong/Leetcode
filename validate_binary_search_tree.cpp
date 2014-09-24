@@ -24,14 +24,14 @@ public:
 
     bool isValidBranch(TreeNode *node, int &MIN, int &MAX)
     {
-    	if (!node) return true;
-    	
-    	if(node->val > MIN &&
-    		node->val < MAX &&
-    		isValidBranch(node->left, MIN, node->val) &&
-    		isValidBranch(node->right, node->val, MAX))
-    		return true;
-    	else
-    		return false;
+        if (!node) return true;
+
+        if (node->val > MIN &&
+                node->val < MAX &&
+                isValidBranch(node->left, MIN, node->val) &&
+                isValidBranch(node->right, node->val, MAX))
+            return true;
+        else
+            return false;
     }
 };
