@@ -10,32 +10,42 @@
 class Solution {
 public:
     TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
-        return buildTree(inorder, 0, inorder.size()-1, postorder, 0, postorder.size() - 1);
+        return buildTree(inorder, postorder, 0, inorder.size() - 1, 0, postorder.size() - 1);
     }
 
-    TreeNode *buildTree(vector<int> &inorder, int s0, int e0, vector<int> &postorder, int s1, int e1)
+
+    TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder, int start_in, int end_in, int start_post, int end_post)
     {
-    	if(s0 > e0 || s1 > e1)
-    	{
-    		return NULL;
-    	}
+        if (end_in < start_in || end_in - start_in != end_post - start_post)
+        {
+            return NULL;
+        }
 
-    	int rootval = postorder[e1];
-    	TreeNode *root = new TreeNode(rootval);
+        // the end of postorder must be the root.
+        TreeNode *root = new TreeNode(postorder[end_post]);
 
-    	int i, mid;
-    	for(i = s0; i <= e0 ; ++i)
-    	{
-    		if(inorder[i] == rootval)
-    		{
-    			mid = i;
-    			break;
-    		}
-    	}
+        // split the left tree and right tree in the inorder.
+        int splitter = -1;
 
-    	int leftnum = mid - s0;
-    	root->left = buildTree(inorder, s0, mid-1, postorder, s1, s1 + leftnum - 1);
-    	root->right = buildTree(inorder, mid + 1, e0, postorder, s1+leftnum, e1);
-    	return root;
+        for (int i = start_in; i <= end_in; ++i)
+        {
+            if (inorder[i] == root->val)
+            {
+                splitter = i;
+                break;
+            }
+        }
+
+        // ----- if not split, this is the leave. return it and end.
+        if (splitter == -1)
+        {
+            return root;
+        }
+        // ----- build trees.
+        int length = splitter - start_in;
+        root->left = buildTree(inorder, postorder, start_in, splitter - 1, start_post, start_post + length - 1);
+        root->right = buildTree(inorder, postorder, splitter + 1, end_in, start_post + length, end_post - 1);
+
+        return root;
     }
 };

@@ -3,8 +3,9 @@ class Solution:
     # @return an integer
 
     # Just use the XOR operator. XOR(A, XOR(B, A)) = B
+
     def singleNumber(self, A):
-    	result = A[0]
+        result = A[0]
         for i in A[1:]:
-        	result ^= i
+            result ^= i
         return result
