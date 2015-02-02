@@ -13,7 +13,7 @@ public:
         return hasPathSum(root, 0, sum);
     }
 
-    bool hasPathSum(TreeNode *root, int sum, int target)
+    bool hasPathSum(TreeNode *root, int already_have, int target)
     {
 
         // reaching out of the tree.
@@ -22,12 +22,12 @@ public:
             return false;
         }
 
-        sum += root->val;
+        already_have += root->val;
 
         // reaching a leave.
         if (root->left == NULL && root->right == NULL)
         {
-            if (sum == target)
+            if (already_have == target)
             {
                 return true;
             }
@@ -37,6 +37,6 @@ public:
             }
         }
         // I can even further cut off some branches if the values are non-negative.
-        return hasPathSum(root->left, sum, target) || hasPathSum(root->right, sum, target);
+        return hasPathSum(root->left, already_have, target) || hasPathSum(root->right, already_have, target);
     }
 };
